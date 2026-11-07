@@ -76,7 +76,8 @@ function loadConfig() {
   let cfg = { ...DEFAULT_CONFIG };
   if (fs.existsSync(CONFIG_PATH)) {
     try {
-      const raw = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+      const cfgText = fs.readFileSync(CONFIG_PATH, 'utf8').replace(/^\uFEFF/, '');
+      const raw = JSON.parse(cfgText);
       cfg = { ...cfg, ...raw };
     } catch (e) {
       console.error('[config] 解析失败，使用默认配置：', e.message);
@@ -85,6 +86,9 @@ function loadConfig() {
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(DEFAULT_CONFIG, null, 2), 'utf8');
     console.log('[config] 已生成配置模板：', CONFIG_PATH);
     console.log('         请填写 baseUrl / model / apiKey 后重新启动。');
+  }
+  if (!cfg.apiKey || String(cfg.apiKey).indexOf('PUT-YOUR') === 0) {
+    console.warn('[config] 还没有填写 apiKey（配置：' + CONFIG_PATH + '），AI 答题会失败；填好 Key 后重启服务。');
   }
   if (process.env.AI_TIKU_PROVIDER) cfg.provider = process.env.AI_TIKU_PROVIDER;
   if (process.env.AI_TIKU_KEY) cfg.apiKey = process.env.AI_TIKU_KEY;
