@@ -44,6 +44,22 @@ Windows 下推荐直接双击 `start-ai-tiku.cmd`（会自动复制配置并启�
 
 > 也可以配合 **OCS 网课助手桌面版**：在 OCS「脚本列表」里把脚本作为「网络脚本」添加（脚本由本地服务 `http://127.0.0.1:8765/scripts/xxx.user.js` 提供，本仓库的 ai-tiku-server.js 已内置该分发路由）。
 
+<details>
+<summary><b>OCS 里要添加的 7 条地址（点开复制）</b></summary>
+
+```
+http://127.0.0.1:8765/scripts/ocs.user.js
+http://127.0.0.1:8765/scripts/course-helper.user.js
+http://127.0.0.1:8765/scripts/course-exam.user.js
+http://127.0.0.1:8765/scripts/course-discuss.user.js
+http://127.0.0.1:8765/scripts/course-grade-feedback.user.js
+http://127.0.0.1:8765/scripts/course-mastery.user.js
+http://127.0.0.1:8765/scripts/course-login.user.js
+```
+
+第 1 条是 OCS 官方的「网课助手」脚本（基础功能，必加）；后面 6 条是本仓库的配套脚本。
+</details>
+
 ### 3. 打开网课平台，面板出现即生效
 
 - 挂机：进入视频页，点面板「开始」；
